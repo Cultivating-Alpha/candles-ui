@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import ReactECharts from "echarts-for-react"; // or var ReactECharts = require('echarts-for-react');
 
 import fetchData from "./index.fetchData";
+import fetchIndicators from "./index.fetchIndicators";
 import generateOption from "./index.generateOption";
 
 
@@ -18,11 +19,11 @@ interface State {
 const defaultState: State = {
   height: 0,
   equityData: [],
-  indData: [],   
   dates: [],
   candleData: [],
   markData: [],
-  scatterData: []
+  scatterData: [],
+  indicators: [] 
 }
 
 
@@ -35,8 +36,9 @@ export default () => {
         ...prevState,
         height: window.innerHeight - 50
       }));
+      fetchData(setState)
+      fetchIndicators(setState)
     }
-    fetchData(setState)
   }, [state]);
 
   if (state.height === 0) {

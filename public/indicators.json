@@ -1,0 +1,1 @@
+[{"name": "Donchian", "type": "line", "panel": 0, "dataIndex": 0}, {"name": "RSI", "type": "line", "panel": 1, "dataIndex": 1}, {"name": "RSI Scatter High", "type": "scatter", "panel": 0, "dataIndex": 2}, {"name": "RSI Scatter Low", "type": "scatter", "panel": 0, "dataIndex": 3}]

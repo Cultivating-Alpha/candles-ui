@@ -125,36 +125,12 @@ const generateOption = (state: any) => {
           symbolSize: 12,
         },
       },
-      {
-        name: "Don",
-        type: "line",
-        itemStyle: {
-          color: "gray",
-        },
-        data: state.indData,
-        // encode: {
-        //   x: 0,
-        //   y: 6,
-        // },
-      },
-      {
-        type: "scatter",
-        symbolSize: 10,
-        data: state.scatterData,
-      },
-      {
-        name: "Equity",
-        type: "line",
-        xAxisIndex: 1,
-        yAxisIndex: 1,
-        data: state.equityData,
-        itemStyle: {
-          color: "black",
-        },
-        large: true,
-      },
     ],
   };
+
+  state.indicators.map((indicator) => option.series.push(indicator))
+
+
   return option
 }
 

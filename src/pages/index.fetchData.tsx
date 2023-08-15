@@ -58,9 +58,7 @@ const fetchData = (setState) => {
         worker: true,
         dynamicTyping: true,
         complete: (results) => {
-          const _source = [];
           const _candleData: any[]= [];
-          const _indData: any[]= [];
           const _dates: any[]= [];
           const _equityData: any[]= [];
           const _markData: any[]= [];
@@ -71,32 +69,30 @@ const fetchData = (setState) => {
             let date = echarts.format.formatTime("yyyy-MM-dd hh:mm:ss", (xValue += minute));
             _dates.push(date);
             _equityData.push(item[5]);
-            _indData.push(item[6]);
 
             _candleData.push(addCandleItem(item));
 
-            if (item[10] > 0) {
-              _markData.push({
-                name: "Mark",
-                coord: [date, item[2] + 2],
-                value: item[10],
-                itemStyle: {
-                  color: "rgb(41,60,85)",
-                },
-              });
-            }
-            if (item[11] > 70) {
-              _scatterData.push([date, item[2] + 5]);
-            }
-            if (item[11] < 30) {
-              _scatterData.push([date, item[3] - 5]);
-            }
+            // if (item[10] > 0) {
+            //   _markData.push({
+            //     name: "Mark",
+            //     coord: [date, item[2] + 2],
+            //     value: item[10],
+            //     itemStyle: {
+            //       color: "rgb(41,60,85)",
+            //     },
+            //   });
+            // }
+            // if (item[11] > 70) {
+            //   _scatterData.push([date, item[2] + 5]);
+            // }
+            // if (item[11] < 30) {
+            //   _scatterData.push([date, item[3] - 5]);
+            // }
 
           });
           setState(prevState => ({
             ...prevState,
             equityData: _equityData,
-            indData: _indData,
             dates: _dates,
             candleData: _candleData,
             markData: _markData,
