@@ -2,6 +2,53 @@ import axios from "axios";
 import { usePapaParse } from "react-papaparse";
 import * as echarts from "echarts";
 
+const keys = {
+  date: 0,
+  open: 1,
+  high: 2,
+  low: 3,
+  close: 4,
+  equity: 5,
+  indicator: 6,
+  long: 7,
+  short: 8,
+
+}
+
+const addCandleItem = (item: any[]) => {
+  let itemStyle = {
+    color: "transparent", // Set the color for bullish (rising) candlesticks
+    color0: "transparent", // Set the color for bearish (falling) candlesticks
+    borderColor: "gray", // Set border color for candlesticks
+    borderColor0: "gray", // Set border color for candlesticks
+  };
+
+  if (item[keys['long']] == "True") {
+    itemStyle = {
+      color: "teal",
+      color0: "red",
+      borderColor: "teal",
+      borderColor0: "red",
+    };
+  } else if (item[keys['short']] == "True") {
+    itemStyle = {
+      color: "red",
+      color0: "red",
+      borderColor: "red",
+      borderColor0: "red",
+    };
+  }
+  return {
+    value: [
+      item[keys['open']], 
+      item[keys['close']],
+      item[keys['low']],
+      item[keys['high']]
+    ],
+    itemStyle: itemStyle,
+  };
+}
+
 const fetchData = (setState) => {
   const { readString } = usePapaParse();
   axios
@@ -19,38 +66,15 @@ const fetchData = (setState) => {
           const _markData: any[]= [];
           const _scatterData: any[]= [];
           results.data.map((item: any[]) => {
-            let xValue = +new Date(item[0]);
+            let xValue = +new Date(item[keys['date']]);
             let minute = 60 * 1000;
             let date = echarts.format.formatTime("yyyy-MM-dd hh:mm:ss", (xValue += minute));
             _dates.push(date);
             _equityData.push(item[5]);
             _indData.push(item[6]);
 
-            let itemStyle = {
-              color: "transparent", // Set the color for bullish (rising) candlesticks
-              color0: "transparent", // Set the color for bearish (falling) candlesticks
-              borderColor: "gray", // Set border color for candlesticks
-              borderColor0: "gray", // Set border color for candlesticks
-            };
-            if (item[7] == "True") {
-              itemStyle = {
-                color: "teal",
-                color0: "red",
-                borderColor: "teal",
-                borderColor0: "red",
-              };
-            } else if (item[8] == "True") {
-              itemStyle = {
-                color: "red",
-                color0: "red",
-                borderColor: "red",
-                borderColor0: "red",
-              };
-            }
-            _candleData.push({
-              value: [item[1], item[4], item[3], item[2]],
-              itemStyle: itemStyle,
-            });
+            _candleData.push(addCandleItem(item));
+
             if (item[10] > 0) {
               _markData.push({
                 name: "Mark",
