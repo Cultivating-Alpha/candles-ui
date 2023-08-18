@@ -94,8 +94,8 @@ const generateOption = (state: any) => {
       {
         type: "inside",
         xAxisIndex: [0, 1],
-        start: 95,
-        end: 100,
+        start: 0,
+        end: 60,
       },
       {
         show: true,

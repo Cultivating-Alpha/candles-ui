@@ -62,10 +62,9 @@ const fetchData = (setState) => {
           const _equityData: any[]= [];
           const _markData: any[]= [];
           const _scatterData: any[]= [];
-          results.data.map((item: any[]) => {
+          results.data.map((item: any[], index) => {
             let xValue = +new Date(item[keys['date']]);
-            let minute = 60 * 1000;
-            let date = echarts.format.formatTime("yyyy-MM-dd hh:mm:ss", (xValue += minute));
+            let date = echarts.format.formatTime("yyyy-MM-dd hh:mm:ss", (xValue));
             _dates.push(date);
             _equityData.push(item[keys['equity']]);
 
