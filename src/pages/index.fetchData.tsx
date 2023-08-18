@@ -8,10 +8,9 @@ const keys = {
   high: 2,
   low: 3,
   close: 4,
-  equity: 5,
-  indicator: 6,
-  long: 7,
-  short: 8,
+  long: 5,
+  short: 6,
+  equity: 7
 
 }
 
@@ -68,7 +67,7 @@ const fetchData = (setState) => {
             let minute = 60 * 1000;
             let date = echarts.format.formatTime("yyyy-MM-dd hh:mm:ss", (xValue += minute));
             _dates.push(date);
-            _equityData.push(item[5]);
+            _equityData.push(item[keys['equity']]);
 
             _candleData.push(addCandleItem(item));
 

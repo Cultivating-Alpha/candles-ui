@@ -49,3 +49,6 @@ local
 
 # vercel
 .vercel
+public/indicators.csv
+public/indicators.json
+public/ohlc.csv

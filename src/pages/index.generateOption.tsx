@@ -39,13 +39,13 @@ const generateOption = (state: any) => {
       {
         left: "5%",
         right: "5%",
-        bottom: 300,
+        bottom: 155,
       },
       {
         left: "5%",
         right: "5%",
-        height: 300,
-        bottom: 0,
+        height: 100,
+        bottom: 30,
       },
     ],
     xAxis: [
@@ -94,7 +94,7 @@ const generateOption = (state: any) => {
       {
         type: "inside",
         xAxisIndex: [0, 1],
-        start: 99,
+        start: 95,
         end: 100,
       },
       {
