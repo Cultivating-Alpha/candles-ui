@@ -7,6 +7,7 @@ const generateOption = (state: any) => {
     },
     tooltip: {
       trigger: "axis",
+      position: [10, 30],
       axisPointer: {
         type: "line",
       },
@@ -128,10 +129,9 @@ const generateOption = (state: any) => {
     ],
   };
 
-  state.indicators.map((indicator) => option.series.push(indicator))
+  state.indicators.map((indicator) => option.series.push(indicator));
 
+  return option;
+};
 
-  return option
-}
-
-export default generateOption
+export default generateOption;
