@@ -134,7 +134,7 @@ const generateOption = (state: any) => {
         type: 'inside',
         xAxisIndex: [0, 1, 2],
         start: 0,
-        end: 10,
+        end: 80,
       },
       {
         show: true,
@@ -164,25 +164,7 @@ const generateOption = (state: any) => {
           symbolSize: 12,
         },
         markLine: {
-          // data: state.tradeArrows,
-          data: [
-            [
-              {
-                name: 'points',
-                coord: [10, 13500],
-              },
-              {
-                coord: [20, 13600],
-              },
-            ],
-            state.tradeArrows[0],
-          ],
-          //
-          //
-          //
-          //
-          //
-          //
+          data: state.tradeArrows,
         },
       },
     ],
