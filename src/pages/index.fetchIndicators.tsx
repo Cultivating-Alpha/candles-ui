@@ -12,8 +12,6 @@ const fetchIndicators = (setState) => {
         dynamicTyping: true,
         complete: (results) => {
           settings.map((setting) => {
-            console.log('====================');
-            console.log(setting);
             series.push({
               ...setting,
               data: results.data.map((arr) => arr[setting.dataIndex]),

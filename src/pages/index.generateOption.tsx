@@ -163,11 +163,33 @@ const generateOption = (state: any) => {
           symbol: 'triangle',
           symbolSize: 12,
         },
+        markLine: {
+          // data: state.tradeArrows,
+          data: [
+            [
+              {
+                name: 'points',
+                coord: [10, 13500],
+              },
+              {
+                coord: [20, 13600],
+              },
+            ],
+            state.tradeArrows[0],
+          ],
+          //
+          //
+          //
+          //
+          //
+          //
+        },
       },
     ],
   };
 
   state.indicators.map((indicator) => option.series.push(indicator));
+  console.log(option.series[0].markLine.data);
 
   return option;
 };

@@ -1,6 +1,6 @@
-import axios from "axios";
-import { usePapaParse } from "react-papaparse";
-import * as echarts from "echarts";
+import axios from 'axios';
+import * as echarts from 'echarts';
+import { usePapaParse } from 'react-papaparse';
 
 const keys = {
   date: 0,
@@ -17,56 +17,51 @@ const keys = {
 
 const addCandleItem = (item: any[]) => {
   let itemStyle = {
-    color: "transparent", // Set the color for bullish (rising) candlesticks
-    color0: "transparent", // Set the color for bearish (falling) candlesticks
-    borderColor: "gray", // Set border color for candlesticks
-    borderColor0: "gray", // Set border color for candlesticks
+    color: 'transparent', // Set the color for bullish (rising) candlesticks
+    color0: 'transparent', // Set the color for bearish (falling) candlesticks
+    borderColor: 'gray', // Set border color for candlesticks
+    borderColor0: 'gray', // Set border color for candlesticks
   };
 
-  if (item[keys["entry_trade"]] != "nan") {
+  if (item[keys.entry_trade] != 'nan') {
     itemStyle = {
-      color: "black",
-      color0: "black",
-      borderColor: "black",
-      borderColor0: "blackred",
+      color: 'black',
+      color0: 'black',
+      borderColor: 'black',
+      borderColor0: 'blackred',
     };
-  } else if (item[keys["exit_trade"]] != "nan") {
+  } else if (item[keys.exit_trade] != 'nan') {
     itemStyle = {
-      color: "orange",
-      color0: "orange",
-      borderColor: "orange",
-      borderColor0: "orange",
+      color: 'orange',
+      color0: 'orange',
+      borderColor: 'orange',
+      borderColor0: 'orange',
     };
-  } else if (item[keys["long"]] == "True") {
+  } else if (item[keys.long] == 'True') {
     itemStyle = {
-      color: "rgba(0, 128, 128, 0.5)",
-      color0: "rgba(255, 0, 0, 0.5)",
-      borderColor: "rgba(0, 128, 128, 0.5)",
-      borderColor0: "rgba(255, 0, 0, 0.5)",
+      color: 'rgba(0, 128, 128, 0.5)',
+      color0: 'rgba(255, 0, 0, 0.5)',
+      borderColor: 'rgba(0, 128, 128, 0.5)',
+      borderColor0: 'rgba(255, 0, 0, 0.5)',
     };
-  } else if (item[keys["short"]] == "True") {
+  } else if (item[keys.short] == 'True') {
     itemStyle = {
-      color: "rgba(255, 0, 0, 0.5)",
-      color0: "red",
-      borderColor: "rgba(255, 0, 0, 0.5)",
-      borderColor0: "rgba(255, 0, 0, 0.5)",
+      color: 'rgba(255, 0, 0, 0.5)',
+      color0: 'red',
+      borderColor: 'rgba(255, 0, 0, 0.5)',
+      borderColor0: 'rgba(255, 0, 0, 0.5)',
     };
   }
   return {
-    value: [
-      item[keys["open"]],
-      item[keys["close"]],
-      item[keys["low"]],
-      item[keys["high"]],
-    ],
-    itemStyle: itemStyle,
+    value: [item[keys.open], item[keys.close], item[keys.low], item[keys.high]],
+    itemStyle,
   };
 };
 
 const fetchData = (setState) => {
   const { readString } = usePapaParse();
   axios
-    .get("/ohlc.csv")
+    .get('/ohlc.csv')
     .then((res) =>
       readString(res.data, {
         worker: true,
@@ -78,12 +73,14 @@ const fetchData = (setState) => {
           const _markData: any[] = [];
           const _scatterData: any[] = [];
           results.data.map((item: any[], index) => {
-            let xValue = +new Date(item[keys["date"]]);
-            let date = echarts.format.formatTime("yyyy-MM-dd hh:mm:ss", xValue);
+            const xValue = +new Date(item[keys.date]);
+            const date = echarts.format.formatTime(
+              'yyyy-MM-dd hh:mm:ss',
+              xValue,
+            );
             _dates.push(date);
             _candleData.push(addCandleItem(item));
           });
-          console.log(results.data[0]);
           setState((prevState) => ({
             ...prevState,
             dates: _dates,

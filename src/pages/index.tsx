@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 
 import fetchData from './index.fetchData';
 import fetchIndicators from './index.fetchIndicators';
+import fetchTradeArrows from './index.fetchTradeArrows';
 import generateOption from './index.generateOption';
 
 interface State {
@@ -36,6 +37,7 @@ const Index = () => {
       }));
       fetchData(setState);
       fetchIndicators(setState);
+      fetchTradeArrows(setState);
     }
   }, [state]);
 

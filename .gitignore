@@ -52,3 +52,5 @@ local
 public/indicators.csv
 public/indicators.json
 public/ohlc.csv
+public/trade_arrows.csv
+public/trade_arrows.json
