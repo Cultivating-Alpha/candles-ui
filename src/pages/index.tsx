@@ -32,7 +32,7 @@ const Index = () => {
     if (state.height === 0) {
       setState((prevState) => ({
         ...prevState,
-        height: window.innerHeight - 5,
+        height: window.innerHeight,
       }));
       fetchData(setState);
       fetchIndicators(setState);

@@ -1,31 +1,38 @@
-import * as echarts from 'echarts';
-
 const generateOption = (state: any) => {
   const option = {
-    title: {
-      text: `Data Amount: ${echarts.format.addCommas(state.dates.length)}`,
-    },
+    // title: {
+    //   text: `Data Amount: ${echarts.format.addCommas(state.dates.length)}`,
+    // },
     tooltip: {
       trigger: 'axis',
-      position: [10, 30],
+      position(pos, params, el, elRect, size) {
+        const obj = { top: 10 };
+        obj[['left', 'right'][+(pos[0] < size.viewSize[0] / 2)]] = 30;
+        return obj;
+      },
       axisPointer: {
-        type: 'line',
+        type: 'cross',
+      },
+      textStyle: {
+        fontSize: 12,
       },
     },
-    brush: {
-      xAxisIndex: 'all',
-      brushLink: 'all',
-      outOfBrush: {
-        colorAlpha: 0.1,
-      },
-    },
-    toolbox: {
-      feature: {
-        dataZoom: {
-          yAxisIndex: false,
-        },
-      },
-    },
+    // // An area-selecting component, with which user can select part of data from a chart to display in detail, or do calculations with them.
+    // brush: {
+    //   xAxisIndex: 'all',
+    //   brushLink: 'all',
+    //   outOfBrush: {
+    //     colorAlpha: 0.1,
+    //   },
+    // },
+    // // A group of utility tools, which includes export, data view, dynamic type switching, data area zooming, and reset.
+    // toolbox: {
+    //   feature: {
+    //     dataZoom: {
+    //       yAxisIndex: false,
+    //     },
+    //   },
+    // },
     axisPointer: {
       link: [
         {
@@ -36,22 +43,61 @@ const generateOption = (state: any) => {
         backgroundColor: '#777',
       },
     },
+    // Here is where we add more panels
     grid: [
       {
-        left: '5%',
+        left: '1%',
         right: '5%',
-        bottom: 155,
+        top: 20,
+        bottom: 240,
+        borderColor: '#4c4c4c',
+        borderWidth: 1,
+        show: true,
       },
       {
-        left: '5%',
+        left: '1%',
         right: '5%',
-        height: 100,
-        bottom: 30,
+        height: 80,
+        bottom: 150,
+        borderColor: '#4c4c4c',
+        borderWidth: 1,
+        show: true,
+      },
+      {
+        left: '1%',
+        right: '5%',
+        height: 80,
+        bottom: 60,
+        borderColor: '#4c4c4c',
+        borderWidth: 1,
+        show: true,
       },
     ],
     xAxis: [
       {
         type: 'category',
+        boundaryGap: false,
+        data: state.dates,
+        show: false,
+        axisLine: { onZero: false },
+        splitLine: { show: false },
+        min: 'dataMin',
+        max: 'dataMax',
+      },
+      {
+        type: 'category',
+        show: false,
+        gridIndex: 1,
+        boundaryGap: false,
+        data: state.dates,
+        axisLine: { onZero: false },
+        splitLine: { show: false },
+        min: 'dataMin',
+        max: 'dataMax',
+      },
+      {
+        type: 'category',
+        gridIndex: 2,
         boundaryGap: false,
         data: state.dates,
         // inverse: true,
@@ -60,47 +106,39 @@ const generateOption = (state: any) => {
         min: 'dataMin',
         max: 'dataMax',
       },
-      {
-        type: 'category',
-        gridIndex: 1,
-        boundaryGap: false,
-        data: state.dates,
-        axisLine: { onZero: false },
-        axisTick: { show: false },
-        splitLine: { show: false },
-        axisLabel: { show: false },
-        min: 'dataMin',
-        max: 'dataMax',
-      },
     ],
 
     yAxis: [
       {
+        position: 'right',
         scale: true,
         splitArea: {
           show: true,
         },
       },
       {
+        position: 'right',
         scale: true,
         gridIndex: 1,
         splitNumber: 2,
-        axisLabel: { show: false },
-        axisLine: { show: false },
-        axisTick: { show: false },
-        splitLine: { show: false },
+      },
+      {
+        position: 'right',
+        scale: true,
+        gridIndex: 2,
+        splitNumber: 2,
       },
     ],
     dataZoom: [
       {
         type: 'inside',
-        xAxisIndex: [0, 1],
+        xAxisIndex: [0, 1, 2],
         start: 0,
-        end: 60,
+        end: 10,
       },
       {
         show: true,
-        xAxisIndex: [0, 1],
+        xAxisIndex: [0, 1, 2],
         type: 'slider',
         bottom: 10,
         start: 10,
