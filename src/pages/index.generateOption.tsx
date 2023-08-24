@@ -1,20 +1,20 @@
-import * as echarts from "echarts";
+import * as echarts from 'echarts';
 
 const generateOption = (state: any) => {
   const option = {
     title: {
-      text: "Data Amount: " + echarts.format.addCommas(state.dates.length),
+      text: `Data Amount: ${echarts.format.addCommas(state.dates.length)}`,
     },
     tooltip: {
-      trigger: "axis",
+      trigger: 'axis',
       position: [10, 30],
       axisPointer: {
-        type: "line",
+        type: 'line',
       },
     },
     brush: {
-      xAxisIndex: "all",
-      brushLink: "all",
+      xAxisIndex: 'all',
+      brushLink: 'all',
       outOfBrush: {
         colorAlpha: 0.1,
       },
@@ -29,39 +29,39 @@ const generateOption = (state: any) => {
     axisPointer: {
       link: [
         {
-          xAxisIndex: "all",
+          xAxisIndex: 'all',
         },
       ],
       label: {
-        backgroundColor: "#777",
+        backgroundColor: '#777',
       },
     },
     grid: [
       {
-        left: "5%",
-        right: "5%",
+        left: '5%',
+        right: '5%',
         bottom: 155,
       },
       {
-        left: "5%",
-        right: "5%",
+        left: '5%',
+        right: '5%',
         height: 100,
         bottom: 30,
       },
     ],
     xAxis: [
       {
-        type: "category",
+        type: 'category',
         boundaryGap: false,
         data: state.dates,
         // inverse: true,
         axisLine: { onZero: false },
         splitLine: { show: false },
-        min: "dataMin",
-        max: "dataMax",
+        min: 'dataMin',
+        max: 'dataMax',
       },
       {
-        type: "category",
+        type: 'category',
         gridIndex: 1,
         boundaryGap: false,
         data: state.dates,
@@ -69,8 +69,8 @@ const generateOption = (state: any) => {
         axisTick: { show: false },
         splitLine: { show: false },
         axisLabel: { show: false },
-        min: "dataMin",
-        max: "dataMax",
+        min: 'dataMin',
+        max: 'dataMax',
       },
     ],
 
@@ -93,7 +93,7 @@ const generateOption = (state: any) => {
     ],
     dataZoom: [
       {
-        type: "inside",
+        type: 'inside',
         xAxisIndex: [0, 1],
         start: 0,
         end: 60,
@@ -101,7 +101,7 @@ const generateOption = (state: any) => {
       {
         show: true,
         xAxisIndex: [0, 1],
-        type: "slider",
+        type: 'slider',
         bottom: 10,
         start: 10,
         end: 100,
@@ -109,20 +109,20 @@ const generateOption = (state: any) => {
     ],
     series: [
       {
-        name: "OHLC",
-        type: "candlestick",
+        name: 'OHLC',
+        type: 'candlestick',
         data: state.candleData,
         markPoint: {
           label: {
-            formatter: function (param) {
-              return param != null ? Math.round(param.value) + "" : "";
+            formatter(param) {
+              return param != null ? `${Math.round(param.value)}` : '';
             },
             fontSize: 8,
             distance: 350,
             show: false,
           },
           data: state.markData,
-          symbol: "triangle",
+          symbol: 'triangle',
           symbolSize: 12,
         },
       },
