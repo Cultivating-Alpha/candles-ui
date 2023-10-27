@@ -1,3 +1,4 @@
+// @ts-nocheck
 const generateOption = (state: any) => {
   const option = {
     // title: {
@@ -57,8 +58,10 @@ const generateOption = (state: any) => {
       {
         left: '1%',
         right: '5%',
-        height: 80,
-        bottom: 150,
+        // height: 80,
+        // bottom: 150,
+        height: 150,
+        bottom: 60,
         borderColor: '#4c4c4c',
         borderWidth: 1,
         show: true,
@@ -70,7 +73,7 @@ const generateOption = (state: any) => {
         bottom: 60,
         borderColor: '#4c4c4c',
         borderWidth: 1,
-        show: true,
+        show: false,
       },
     ],
     xAxis: [
@@ -134,7 +137,7 @@ const generateOption = (state: any) => {
         type: 'inside',
         xAxisIndex: [0, 1, 2],
         start: 0,
-        end: 80,
+        end: 30,
       },
       {
         show: true,
@@ -170,8 +173,11 @@ const generateOption = (state: any) => {
     ],
   };
 
-  state.indicators.map((indicator) => option.series.push(indicator));
-  console.log(option.series[0].markLine.data);
+  if (state.indicators) {
+    state.indicators.map((indicator) => option.series.push(indicator));
+  } else {
+    console.log('Cant find indicators');
+  }
 
   return option;
 };

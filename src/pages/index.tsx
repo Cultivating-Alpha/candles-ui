@@ -1,15 +1,14 @@
 import ReactECharts from 'echarts-for-react'; // or var ReactECharts = require('echarts-for-react');
 import React, { useEffect, useState } from 'react';
 
-import fetchData from './index.fetchData';
-import fetchIndicators from './index.fetchIndicators';
-import fetchTradeArrows from './index.fetchTradeArrows';
-import generateOption from './index.generateOption';
+import fetchData from '@/components/index.fetchData';
+import fetchIndicators from '@/components/index.fetchIndicators';
+import fetchTradeArrows from '@/components/index.fetchTradeArrows';
+import generateOption from '@/components/index.generateOption';
 
 interface State {
   height: number;
   equityData: number[]; // Replace 'any' with the actual type of equityData
-  indData: number[]; // Replace 'any' with the actual type of indData
   dates: number[]; // Replace 'any' with the actual type of dates
   candleData: number[];
   markData: number[];
@@ -23,7 +22,6 @@ const defaultState: State = {
   candleData: [],
   markData: [],
   scatterData: [],
-  indicators: [],
 };
 
 const Index = () => {
@@ -50,6 +48,7 @@ const Index = () => {
       <div className="min-h-screen">
         <ReactECharts
           style={{ height: state.height, width: '100%' }}
+          // option={generateOption(state)}
           option={generateOption(state)}
           notMerge
           lazyUpdate

@@ -1,26 +1,27 @@
 import axios from 'axios';
 import { usePapaParse } from 'react-papaparse';
 
-const fetchIndicators = (setState) => {
+const fetchIndicators = (setState: any) => {
+  // eslint-disable-next-line
   const { readString } = usePapaParse();
-  axios.get('/indicators.json').then((res) => {
-    const settings = res.data;
-    const series = [];
+  axios.get('/indicators.json').then((settings_res) => {
+    const settings = settings_res.data;
+    const series: any[] = [];
     axios.get('/indicators.csv').then((res) => {
       readString(res.data, {
         worker: true,
         dynamicTyping: true,
         complete: (results) => {
-          settings.map((setting) => {
-            series.push({
+          settings.map((setting: any) => {
+            return series.push({
               ...setting,
-              data: results.data.map((arr) => arr[setting.dataIndex]),
+              data: results.data.map((arr: any) => arr[setting.dataIndex]),
               xAxisIndex: setting.panel,
               yAxisIndex: setting.panel,
             });
           });
 
-          setState((prevState) => ({
+          setState((prevState: any) => ({
             ...prevState,
             indicators: series,
           }));
