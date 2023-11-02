@@ -1,11 +1,13 @@
-import axios from 'axios';
+import axios from "axios";
 
 const fetchIndicators = (setState: any) => {
   // const { readString } = usePapaParse();
-  axios.get('/trade_arrows.json').then((res) => {
+  axios.get("/trade_arrows.json").then((res) => {
     setState((prevState: any) => ({
       ...prevState,
       tradeArrows: res.data,
+      defaultTradeArrows: res.data,
+      tradeArrowsDirection: 2,
     }));
     // axios.get('/indicators.csv').then((res) => {
     //   readString(res.data, {
