@@ -6,8 +6,7 @@ import fetchIndicators from "@/components/index.fetchIndicators";
 import fetchTradeArrows from "@/components/index.fetchTradeArrows";
 import generateOption from "@/components/index.generateOption";
 
-import { DownloadOutlined } from "@ant-design/icons";
-import { Button, Divider, Flex, Radio } from "antd";
+import { Radio } from "antd";
 
 interface State {
   height: number;
