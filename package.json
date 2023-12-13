@@ -31,6 +31,7 @@
     "next": "^13.4.13",
     "next-seo": "^6.1.0",
     "next-sitemap": "^4.1.8",
+    "next-transpile-modules": "^10.0.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-papaparse": "^4.1.0"

@@ -6,7 +6,6 @@ import fetchData from "@/components/index.fetchData";
 import fetchIndicators from "@/components/index.fetchIndicators";
 import fetchTradeArrows from "@/components/index.fetchTradeArrows";
 import generateOption from "@/components/index.generateOption";
-
 import themes from "@/themes/themes";
 
 interface State {
@@ -46,6 +45,7 @@ const Index = () => {
   }
   if (typeof window !== "undefined") {
     if (state.dates.length > 0) {
+      console.log(echarts);
       Object.keys(themes as any).forEach((key) => {
         echarts.registerTheme(key, themes[key]);
       });
