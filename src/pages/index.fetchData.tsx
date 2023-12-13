@@ -52,6 +52,24 @@ const addCandleItem = (item: any[]) => {
       borderColor0: 'rgba(255, 0, 0, 0.5)',
     };
   }
+
+  const open = item[keys.open];
+  const close = item[keys.close];
+  if (open > close) {
+    itemStyle = {
+      color: 'rgba(0, 128, 128, 0.5)',
+      color0: 'rgba(255, 0, 0, 0.5)',
+      borderColor: 'rgba(0, 128, 128, 0.5)',
+      borderColor0: 'rgba(255, 0, 0, 0.5)',
+    };
+  } else {
+    itemStyle = {
+      color: 'rgba(255, 0, 0, 0.5)',
+      color0: 'red',
+      borderColor: 'rgba(255, 0, 0, 0.5)',
+      borderColor0: 'rgba(255, 0, 0, 0.5)',
+    };
+  }
   return {
     value: [item[keys.open], item[keys.close], item[keys.low], item[keys.high]],
     itemStyle,

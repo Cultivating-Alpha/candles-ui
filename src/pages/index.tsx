@@ -50,6 +50,7 @@ const Index = () => {
       <div className="min-h-screen">
         <ReactECharts
           style={{ height: state.height, width: '100%' }}
+          // option={generateOption(state)}
           option={generateOption(state)}
           notMerge
           lazyUpdate
