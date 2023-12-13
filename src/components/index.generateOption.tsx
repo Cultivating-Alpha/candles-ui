@@ -1,3 +1,4 @@
+// @ts-nocheck
 const generateOption = (state: any) => {
   const option = {
     // title: {
@@ -172,8 +173,11 @@ const generateOption = (state: any) => {
     ],
   };
 
-  state.indicators.map((indicator) => option.series.push(indicator));
-  console.log(option.series[0].markLine.data);
+  if (state.indicators) {
+    state.indicators.map((indicator) => option.series.push(indicator));
+  } else {
+    console.log('Cant find indicators');
+  }
 
   return option;
 };

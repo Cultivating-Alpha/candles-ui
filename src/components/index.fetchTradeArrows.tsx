@@ -1,11 +1,9 @@
 import axios from 'axios';
-import { usePapaParse } from 'react-papaparse';
 
-const fetchIndicators = (setState) => {
-  const { readString } = usePapaParse();
+const fetchIndicators = (setState: any) => {
+  // const { readString } = usePapaParse();
   axios.get('/trade_arrows.json').then((res) => {
-    console.log(res.data);
-    setState((prevState) => ({
+    setState((prevState: any) => ({
       ...prevState,
       tradeArrows: res.data,
     }));

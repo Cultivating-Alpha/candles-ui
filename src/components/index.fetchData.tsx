@@ -23,28 +23,46 @@ const addCandleItem = (item: any[]) => {
     borderColor0: 'gray', // Set border color for candlesticks
   };
 
-  if (item[keys.entry_trade] != 'nan') {
+  if (item[keys.entry_trade] !== 'nan') {
     itemStyle = {
       color: 'black',
       color0: 'black',
       borderColor: 'black',
       borderColor0: 'blackred',
     };
-  } else if (item[keys.exit_trade] != 'nan') {
+  } else if (item[keys.exit_trade] !== 'nan') {
     itemStyle = {
       color: 'orange',
       color0: 'orange',
       borderColor: 'orange',
       borderColor0: 'orange',
     };
-  } else if (item[keys.long] == 'True') {
+  } else if (item[keys.long] === 'True') {
     itemStyle = {
       color: 'rgba(0, 128, 128, 0.5)',
       color0: 'rgba(255, 0, 0, 0.5)',
       borderColor: 'rgba(0, 128, 128, 0.5)',
       borderColor0: 'rgba(255, 0, 0, 0.5)',
     };
-  } else if (item[keys.short] == 'True') {
+  } else if (item[keys.short] === 'True') {
+    itemStyle = {
+      color: 'rgba(255, 0, 0, 0.5)',
+      color0: 'red',
+      borderColor: 'rgba(255, 0, 0, 0.5)',
+      borderColor0: 'rgba(255, 0, 0, 0.5)',
+    };
+  }
+
+  const open = item[keys.open];
+  const close = item[keys.close];
+  if (open > close) {
+    itemStyle = {
+      color: 'rgba(0, 128, 128, 0.5)',
+      color0: 'rgba(255, 0, 0, 0.5)',
+      borderColor: 'rgba(0, 128, 128, 0.5)',
+      borderColor0: 'rgba(255, 0, 0, 0.5)',
+    };
+  } else {
     itemStyle = {
       color: 'rgba(255, 0, 0, 0.5)',
       color0: 'red',
@@ -76,7 +94,8 @@ const addCandleItem = (item: any[]) => {
   };
 };
 
-const fetchData = (setState) => {
+const fetchData = (setState: any) => {
+  // eslint-disable-next-line
   const { readString } = usePapaParse();
   axios
     .get('/ohlc.csv')
@@ -85,29 +104,34 @@ const fetchData = (setState) => {
         worker: true,
         dynamicTyping: true,
         complete: (results) => {
-          const _candleData: any[] = [];
-          const _dates: any[] = [];
-          const _equityData: any[] = [];
-          const _markData: any[] = [];
-          const _scatterData: any[] = [];
-          results.data.map((item: any[], index) => {
+          const candleData: any[] = [];
+          const dates: any[] = [];
+          // const _equityData: any[] = [];
+          // const _markData: any[] = [];
+          // const _scatterData: any[] = [];
+          // @ts-ignore
+          results.data.map((item: any[]) => {
             const xValue = +new Date(item[keys.date]);
             const date = echarts.format.formatTime(
               'yyyy-MM-dd hh:mm:ss',
               xValue,
             );
-            _dates.push(date);
-            _candleData.push(addCandleItem(item));
+            dates.push(date);
+            candleData.push(addCandleItem(item));
+            return 0;
           });
-          setState((prevState) => ({
+          setState((prevState: any) => ({
             ...prevState,
-            dates: _dates,
-            candleData: _candleData,
+            dates,
+            candleData,
           }));
         },
       }),
     )
-    .catch((err) => {});
+    // eslint-ignore-next-line
+    .catch((err: any) => {
+      console.log(err);
+    });
 };
 
 export default fetchData;
