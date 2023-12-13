@@ -1,10 +1,13 @@
-import ReactECharts from 'echarts-for-react'; // or var ReactECharts = require('echarts-for-react');
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
+import dynamic from "next/dynamic";
+const ReactECharts = dynamic(() => import("echarts-for-react"), { ssr: false });
+import * as echarts from "echarts/core";
+import fetchData from "@/components/index.fetchData";
+import fetchIndicators from "@/components/index.fetchIndicators";
+import fetchTradeArrows from "@/components/index.fetchTradeArrows";
+import generateOption from "@/components/index.generateOption";
 
-import fetchData from '@/components/index.fetchData';
-import fetchIndicators from '@/components/index.fetchIndicators';
-import fetchTradeArrows from '@/components/index.fetchTradeArrows';
-import generateOption from '@/components/index.generateOption';
+import themes from "@/themes/themes";
 
 interface State {
   height: number;
@@ -23,7 +26,6 @@ const defaultState: State = {
   markData: [],
   scatterData: [],
 };
-
 const Index = () => {
   const [state, setState] = useState(defaultState);
 
@@ -42,20 +44,18 @@ const Index = () => {
   if (state.height === 0) {
     return <div className="" />;
   }
+  if (typeof window !== "undefined") {
+    if (state.dates.length > 0) {
+      Object.keys(themes as any).forEach((key) => {
+        echarts.registerTheme(key, themes[key]);
+      });
 
-  if (state.dates.length > 0) {
-    return (
-      <div className="min-h-screen">
-        <ReactECharts
-          style={{ height: state.height, width: '100%' }}
-          // option={generateOption(state)}
-          option={generateOption(state)}
-          notMerge
-          lazyUpdate
-          theme="theme_name"
-        />
-      </div>
-    );
+      return (
+        <div className="min-h-screen">
+          <ReactECharts style={{ height: state.height, width: "100%" }} option={generateOption(state)} theme={"vintage"} notMerge lazyUpdate />
+        </div>
+      );
+    }
   }
 
   return <div className="" />;
